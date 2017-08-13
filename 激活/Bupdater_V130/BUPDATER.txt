@@ -1,0 +1,12 @@
+BUPDATER.EXE
+
+How to run the utility under DOS
+-------------------------------------------
+1. Run the file BUPDATER.EXE
+
+Usage
+-------------------------------------------
+bupdater.exe  /i<ROM filename> [/o<backup filename>] [/pc] [/g]
+
+	
+

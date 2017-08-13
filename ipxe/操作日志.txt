@@ -1,0 +1,16 @@
+编译网站
+https://rom-o-matic.eu/
+
+选项：
+高级
+rom bin
+10ec 8136
+-------------------------------------------
+#!ipxe
+dhcp
+chain http://tybh.vicp.net:8086/netboot/boot.php
+-------------------------------------------
+
+
+配置文件备份
+https://rom-o-matic.eu/build.fcgi?BINARY=10ec8136.rom&BINDIR=bin&REVISION=master&DEBUG=&EMBED.00script.ipxe=%23%21ipxe%0Adhcp%0Achain%20http%3A//tybh.vicp.net%3A8086/netboot/boot.php&

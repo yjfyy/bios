@@ -1,0 +1,558 @@
+v0.5
+
+ADD: Range can be specified for SLIC insertion
+ADD: Manual insertion address is validated (to ensure not in a module or beyond end of file)
+ADD: Copyright string is replaced and all OEM/Table IDs are patched to match the SLIC
+ADD: Existing SLIC in 1B is removed
+ADD: Log file generation
+
+FIX: Module scan for 512K MSI BIOS not working (headers have invalid next_offset)
+FIX: Creating a smaller 1B module caused an exception (due to unsigned int)
+FIX: 32 bit ROM checksum is corrected (in theory....)
+FIX: Go button disabled whilst the routine is executing
+
+v0.6
+
+ADD: Options dialog
+ADD: Check for previous SLIC mod
+ADD: Code to get correct 1B size now replaces zeroed areas with the original contents
+ADD: Finer granularity for sizing routine
+
+FIX: Check for presence of MMTool (if selected)
+FIX: SSV3 mod not create 1B_SLIC.BIN file
+FIX: MMTool checkbox only for SSV3 method
+
+v0.7
+
+ADD: SLP1.0 string insertion
+ADD: Fix AMIMMWIN damage if used for SSV3
+
+FIX: Small bug in resize code
+
+v0.8
+
+ADD: SSV1 and Dynamic mod methods
+ADD: Success dialog at end
+
+FIX: Remove whitespace from end of SLP string
+FIX: Inadvertantly removed error handling
+FIX: AMIMMWIN repair code now checks &H10000
+
+v0.9
+
+ADD: Verification at each step (module insertion, mmtool usage etc.)
+ADD: Icon and XP visual style
+ADD: Option to only alter RSDT and XSDT tables
+ADD: Option to enforce padding before SLIC in SSV2 method
+ADD: Option to 'correct' 32 bit checksum (automatic before)
+ADD: Status box
+
+FIX: Default start address for SLIC in SSV2 set to 50000h (Otherwise inserts in first 64k of some ASUS BIOSes)
+FIX: Append SLP1.0 string to existing string at $ODB$
+FIX: Speedup module scan routine
+FIX: Improved clarity of prompts
+FIX: Renamed SSV1 to SSV to avoid AWARD BIOS confusion
+
+v0.91
+
+ADD: Option to force SLIC insertion in SSV2 below AMIBIOSC string
+ADD: Warning about using SSV2 on ASUS BIOSes
+ADD: Changed defaults
+
+FIX: Ensure SSV2 SLIC is never placed in last 64K (bootblock)
+FIX: Speed up search routine
+FIX: Bug in SSV2 1B resizing routine that caused it to fail in rare circumstances
+FIX: Bug in scan routine that finds space for the SLIC in SSV2 that caused it to appear to freeze
+
+v0.92
+
+Not released
+
+v0.93
+
+ADD: Option to verify whole BIOS checksum and fix it when needed
+ADD: Option to automatically fix checksum for ASUS SSV2 mod
+ADD: Option to ensure it is safe to use AMIMMWIN on BIOS
+ADD: Option to ignore checksum warnings
+
+FIX: Bug in module scan routine that caused it to fail in some cases
+
+v0.94
+
+FIX: Always threw error about AMIMMWIN even if MMTOOL checkbox ticked
+
+v0.95
+
+ADD: Check bootblock checksum (now calculates size properly)
+
+FIX: Bug in BIOS checksum routine that caused error on already damaged BIOSes
+FIX: No longer assumes BIOS is core v8 without checking
+
+v0.96
+
+ADD: Option to preserve boot block (from modification by AMIMMWIN and MMTOOL)
+ADD: Check extended boot block checksum
+
+FIX: Small bug in SSV2 space search routine that could cause an exception
+FIX: Module search routine is now less strict on headers (resulted in a module being missed and an checksum problem in a Biostar BIOS)
+
+v0.97
+
+ADD: Ability to perform SSV1 method on earlier AMI BIOSes (core v6 and v7)
+
+FIX: Clarify some options
+FIX: Will now automatically repair AMIMMWIN checksum damage (means AMIMMWIN can be used on BIOSes with $512 in bootblock)
+
+v0.98
+
+FIX: SSV1 for older AMI BIOSes now properly preserves the header and the checksum type (8/32 bit)
+
+v0.99
+
+ADD: Ability to attempt to shrink 1B module for all methods
+
+FIX: Modified new dynamic method so only one call is patched
+FIX: Better way of handling files/paths with spaces for core 6/7 mods
+FIX: General tidying in preperation for non-beta release
+FIX: Parse module 80h to find areas excluded from checksum 
+
+v0.991
+
+FIX: Accidently disabled error handling
+
+v0.992
+
+ADD: Verify button - will checks the main BIOS, boot block and extended boot block (if present) checksums of the specified BIOS. Nothing is changed.
+
+FIX: Sometimes SLIC was not inserted for dynamic method
+
+v0.993
+
+ADD: Option to always shrink 1B (ie. for SSV1/3 or dynamic and not just SSV2) - Note if used in conjunction with the Use Extra Space option 
+     this will alter the appearance of the POST screen and also interfere with EZFlash when flashing a new BIOS - you can still use AFUDOS).
+     This is really an experimental feature for the odd BIOS that cannot fit a normal SSV2 or 3 mod.
+
+v0.994
+
+ADD: Automatically ensure that AMIMMWIN will not damage module 80h
+
+v0.995
+
+ADD: Option to preserve unlinked bytes (ie. non-module, non-ROM hole, non boot-block) that appear in some BIOSes
+
+v0.996
+
+ADD: Option to automate MMTool
+
+FIX: Ensure that SLIC is not inserted in a ROM hole (with SSV2 method)
+
+v0.997
+
+FIX: MMTool not loaded properly with spaces in filename
+
+v0.998
+
+FIX: Speed up SSV2 method
+FIX: Open files in a different way (allows source files to be open at the same time eg. in a hex editor)
+FIX: Specifying a manual address to insert SLIC overrides the Force Below AMIBIOS string option
+FIX: Automated MMTool is now the default option for SSV1, SSV3 and Dynamic methods
+FIX: Remove unnecessary 8 bit and 32 bit corrections after SLIC in SSV2 method (main BIOS checksum is still checked/corrected)
+
+v0.999
+
+FIX: Allow BIOS (and SLIC and SLP files) to be located anywhere. The tool itself and the other tools used (MMTool etc.) must be in the tool's directory.
+
+v0.9991
+
+FIX: LHA compression for SSV2 method didn't work in Vista x64. Reverted back to old method using AMIMMWin
+
+v0.9992
+
+ADD: Ability to insert SSV3 SLIC at an adjusted address (for the odd ASUS eeePC BIOS)
+ADD: Option to specify the table name replacement for existing SLIC tables
+
+FIX: SSV2 method fails to adjust the size of the 1B module in one BIOS (also ASUS eeePC)
+
+v1.00 RC1
+
+ADD: Ability to correct the BIOS image 8 bit checksum. This is needed for some BIOSTAR ROMs.
+
+v1.00 RC2
+
+FIX: Regress some SSV2 code that caused problem flashes
+FIX: Need for matching checksums in XFX BIOSes
+
+ADD: Manufacturer selection list for manufacturer specific fixes
+
+v1.00 RC3
+
+FIX: Problem with BIOS in a different path
+FIX: Potential problem with non-MSI/XFX SLP only SSV2 mod
+
+v1.00 RC4
+
+FIX: Bug in code to find space for SSV2 - hang if no space found
+
+v1.00 RC5
+
+FIX: Bug in module scanning code (and 80h parsing code) if module 80h starts from offset 0 in image
+
+v1.00 RC6
+
+ADD: Tooltips for options and a README document
+
+FIX: Changed behaviour of 'Force Below' option to prevent SLIC insertion above AMIBIOSC string on BIOSes other than MSI/XFX.
+
+v1.00 RC7
+
+ADD: When performing an SSV3 mod and shrinking the 1B module; if the module is shrunk back to original size then it is inserted SSV2 style
+ADD: Method of inserting/replacing modules manually with MMTool is detailed
+
+FIX: Manual MMTool was still being closed after 10 seconds
+FIX: Automated MMTool failed if pathname contained any of '()%~^'
+FIX: Automate MMTool should only be selected automatically on English systems
+FIX: When attempting to insert a long SLP string (that won't fit) the option is now given to truncate
+FIX: Verify button is enabled once BIOS selected (manufacturer need not be selected)
+FIX: If the original BIOS was read-only, a number of file errors could occur
+FIX: 1B.BIN was not deleted after BIOS version established
+
+v1.00 RC8
+
+ADD: Ability to check that a certificate (.XRM-MS) and SLIC match
+ADD: Ability to detect if a BIOS has already been SLIC'd (and the method) 
+ADD: Ability to see if a certificate (.XRM-MS) matches the SLIC table in an existing BIOS
+
+FIX: Attempt to get automated MMTool to work on non-English systems
+FIX: Two bugs in core 6/7 SSV code - however this is still experimental
+
+v1.00 RC9
+
+ADD: Ability to fix main BIOS checksum as part of verify process (only if not MSI/XFX and option to adjust BIOS 32bit checksum enabled)
+
+FIX: Problem with certificate verification in already SLIC'd BIOSes
+
+v1.00 RC10
+
+FIX: Automated MMTool not work on non-English systems
+
+NOTE: Note that sometimes a simulated keystroke is 'lost' causing the automated process to fail. In this case just click Go again.
+
+v1.00 RC11
+
+FIX: Some ASUS BIOSes not correctly identified as ASUS
+
+v1.00 RC12
+
+ADD: Ability to extract BIOS image from AMI Windows Flash EXE
+
+FIX: Recognise ASRock BIOSes and force SLIC below AMIBIOSC header for SSV2 mods
+FIX: Force SLIC below AMIBIOSC header sometimes not honored
+FIX: Speed up automated MMTool for english systems
+FIX: Filename parsing problem with extensionless files
+
+v1.00 RC13
+
+FIX: Properly identify as non AMI BIOS
+FIX: Problem identifying 1B module in an ECS BIOS
+
+v1.00 RC14
+
+FIX: Problem when module 80h containes invalid boot block information
+FIX: Allow ASRock SSV2 method to place SLIC above AMIBIOSC header (with a warning) - works for some and not other ASRock BIOSes
+
+v1.00 Final
+
+FIX: Not abort SSV2 when ASRock and choose no to insert above AMIBIOSC header
+FIX: Not handle linked module
+
+v1.01
+
+FIX: Sometimes certificate box and button not disabled
+FIX: Default open dialog path to program path
+FIX: Deal with bad links in some ASUS BIOSes
+FIX: Deal with EBB checksum errors in some original ASUS BIOSes
+
+v1.02
+
+FIX: Overflow bug in unlinked module scan code
+FIX: Handle module 1B checksum errors
+
+v1.03
+
+ADD: Ability to handle core v8 BIOSes with no module 80h (eg. some Tyan)
+
+v1.10
+
+ADD: Ability to replace SLIC in FC module
+ADD: Ability to recognise a valid SLIC in an FC (or any Fx module)
+ADD: Option to place SLIC in NVRAM area for SSV2 method (now NVRAM area is recognised)
+ADD: Removing config lock is now an option for the dynamic method
+
+FIX: Not properly recognise NVRAM area
+FIX: Not properly recognise non-image ROM holes
+FIX: Error that in some rare circumstances a SLIC could be placed in a ROM hole for SSV2 method
+FIX: When loading subsequent BIOSes appropriate options not selected
+FIX: Some options do not have tooltips
+
+v1.11
+
+ADD: Options dialog for core v7 mods
+ADD: Option for alternate method of core v7 mod (only used if normal method fails)
+
+FIX: Error if no NVRAM area present
+
+v1.12
+
+ADD: Option to ignore a valid SLIC in a Fx module
+ADD: Ability to add a SLP1.0 string to a BIOS with an existing SLIC table
+ADD: Ability to add a SLP string to a core v6/7 BIOS
+
+v1.13
+
+FIX: Not correct for 8/32 bit checksums in core v7 SLP mod
+FIX: Some core v7 BIOSes need SLP done SSV2 way (ie. same size module 02)
+
+v1.14
+
+FIX: Log disabled for SLP addition to a BIOS with an existing SLIC table
+
+v1.15
+
+ADD: Include selected options and version number in log
+
+FIX: Automatically open SLIC and SLP folders when appropriate
+FIX: Not handle linked modules
+FIX: Log disabled for SLP addition to a BIOS with an existing SLIC table (again!)
+FIX: SLIC XOR'd when no patch needed for dynamic mod
+
+v1.16
+
+ADD: Option to replace SLIC in 1B module for dynamic method
+
+v1.17
+
+ADD: Ability to add core v7 SLP SSV2 style
+
+FIX: SLIC offset was damaged in core v7 SLIC+SLP modification
+
+v1.18
+
+ADD: Core v7 SSV2 method
+
+FIX: Improved module insertion code
+FIX: MMTool rarely changes 2 bytes in the 1B module
+FIX: Improved handling of Fx modules. Can now handle complete SLIC, partial SLIC and reversed SLIC.
+FIX: Identify NVRAM area in core v7 BIOSes
+FIX: Possible errors with SSV2 SLP mods
+
+v1.19
+
+ADD: Identify OEM Activation version of SLIC (2.0 or 2.1) inserted and in already SLIC'd BIOSes
+ADD: OEM Activation v2.1 SLICs found in SLIC21 directory
+
+FIX: Core v7 SLP SSV2 not working in conjunction with SSV SLIC
+FIX: Checksum error for some SSV SLIC insertions
+FIX: Update HP SLP string
+FIX: Reversed SLIC in Fx module not inserted correctly
+
+v1.20
+
+ADD: Ability to alter a valid dynamic SLIC in the main module
+
+v1.21
+
+ADD: Ability to patch Intel AMI lock in main module
+ADD: Ability to find and replace pubkey/marker found in main BIOS
+
+FIX: Rarely the last byte of a module could be damaged
+
+v1.22
+
+FIX: Sometimes SLIC is written in wrong place in dynamic 1B mod
+
+v1.23
+
+ADD: Ability to replace a split OEM/Table ID in code with the OEM/Table ID from the inserted SLIC
+ADD: Ability to use LHA 2.55 for core v7 SSV2 mods (overcomes MMTool2 crashes when limited space)
+
+FIX: Fx module not updated if always shrink 1B option used during dynamic mod
+FIX: Unable to specify manual address and address range in core v7 options
+
+v1.24
+
+FIX: Core v7 SSV2 SLP not function correctly
+
+v1.25
+
+FIX: Core v7 SSV2 SLP not function correctly (again!)
+FIX: Ask to insert SSV2 SLIC in NVRAM
+
+v1.26
+
+ADD: Ability to remove existing SLP1.0 string
+ADD: Ability to insert SLIC using MMTool2 during SSV2 mod
+
+FIX: Improve split ID routine
+FIX: Default SLIC folder is now SLIC21
+
+v1.27
+
+FIX: Dynamic mods that alter SLIC in 1B failed in v1.26
+
+v1.28
+
+FIX: Dummy SLIC not removed properly for non-dynamic mods
+FIX: Module size error for SSV2 core v6 mods
+
+v1.29
+
+ADD: Ability to find and replace pubkey/marker found in 1B module
+
+FIX: Alter default options to deal with latest BIOSes
+
+v1.30
+
+FIX: Dynamic mod with shrink 1B option can erronously insert a corrupt 1B module
+FIX: Dynamic mod with multiple Fx modules failed
+
+v1.31
+
+FIX: Error with core v7 checksum calculation parsing excluded areas
+
+v1.32
+
+FIX: Adjust default options for ASRock
+FIX: Executable now named AMITool.exe for consistancy with other tools
+
+v1.33
+
+ADD: Verify certificate code from phoenix tool (verifies any existing SLIC and the given new SLIC file)
+
+FIX: Remember last directory for file open dialogs
+FIX: Internal error handling was disabled
+
+v1.34
+
+ADD: User defined OEM/Table ID can be replaced (both split and unsplit)
+ADD: Can modify BIOSes where there are extra bytes at the start
+
+FIX: Module extraction (via * button) is now done with a modified LHA so multiple modules with same ID can be extracted
+
+v1.35
+
+FIX: Error 6 in some mods
+
+v1.36
+
+FIX: SSV2 sizing code somtimes ended in infinite loop
+FIX: Some split user specified table ids were not found
+
+v1.37
+
+FIX: IASL.EXE not needed
+
+v1.38
+
+ADD: Experimental support for DSDT modification - insert SLI certificate
+ADD: Experimental support for DSDT modification - remove CPU Aliases (for Mac OSX)
+ADD: Experimental support for dynamic modification with OEMX entry
+
+v1.39
+
+ADD: Option to place SLP string in the IBM Copyright region
+ADD: Option to not alter the OEM/Table ID in any ACPI tables
+
+FIX: Improve OEMX dynamic code
+FIX: SSV2 dynamic mod did not properly fail if module could not be shrunk
+
+v1.40
+
+FIX: Unable to perform core 6/7 SSV2 mod with SLIC in NVRAM region
+
+v1.41
+
+ADD: Ability to do core v7 SSV2 mod with the SLIC in the bootblock (tested successfully once)
+
+v1.42
+
+FIX: Detection of dummy SLIC in Fx module
+FIX: For MSI BIOSes with a SLIC in the Fx module, it will replace only this by default
+
+v1.43
+
+ADD: Option to allow manual modification for new DSDT table
+
+FIX: Not handle Intel AMI BIOS properly (needs MMTool2)
+
+v1.44
+
+FIX: For Targe BIOSes (with AMIBIOSCTarg identification)
+
+v1.45
+
+ADD: Verify SLIC digital certificate
+ADD: Intel compatibility (-oa) DSDT option
+
+FIX: Not save file open dialog directory
+
+v1.46
+
+ADD: Ability to find split OEM IDs
+
+v1.47
+
+FIX: Verify SLIC certificate crashed on systems without .NET 3.5 SP1 (now just logs unable to verify)
+
+v1.48
+
+FIX: Core7 SSV mod hung if no space for SLIC module
+FIX: Add SSV3 option to partly shrink 1B module
+
+v1.49
+
+ADD: Display SLIC IDs
+
+FIX: Error when scanning previously modded BIOSes
+
+v1.50
+
+FIX: Error with slightly inconsistant core 7 headers
+
+v1.51
+
+FIX: Debug information included
+FIX: Disabled SSV mods for core 7 BIOSes (can brick)
+
+v1.52
+
+ADD: Better shrinking of core 7 ACPI module
+ADD: DSDT only option (still need to also select DSDT options from advanced page)
+
+v1.53
+
+ADD: Checkbox to simplify core 7 bootblock mod
+
+v1.54
+
+FIX: Bug in bootblock core 7 mod
+
+v1.55
+
+FIX: Overflow bug in core 7 extended header code
+
+v1.60
+
+FIX: Updated some code to be more language independant
+
+v1.61
+
+ADD: Internal update
+
+v1.62
+
+FIX: Overflow error if more than 10 modules of same number
+
+v1.63
+
+ADD: Recognise OA2.2 SLICs
+ADD: Recompiled in VS 2012
